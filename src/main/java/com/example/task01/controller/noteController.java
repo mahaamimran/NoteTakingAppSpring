@@ -16,15 +16,15 @@ public class NoteController {
 
     @GetMapping("/notes")
     public String showNotesPage(Model model) {
-        // your code
-        return "notes"; // assuming 'notes.html' is your Thymeleaf template
+        model.addAttribute("notes", noteRepository.findAll());
+        return "notes";
     }
 
     @PostMapping("/notes")
     public String addNote(Note note, Model model) {
         note.setCreatedAt(new Date());
         noteRepository.save(note);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
     @PostMapping("/notes/update/{id}")
@@ -35,13 +35,13 @@ public class NoteController {
         note.setContent(updatedNote.getContent());
         note.setUpdatedAt(new Date());
         noteRepository.save(note);
-        return "redirect:/";
+        return "redirect:/notes";
     }
 
     @GetMapping("/notes/delete/{id}")
     public String deleteNote(@PathVariable Long id) {
         noteRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:/notes"; // Redirect to refresh the list
     }
 
 }

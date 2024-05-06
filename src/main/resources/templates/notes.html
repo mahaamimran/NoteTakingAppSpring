@@ -1,9 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button,
+        a.button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        button:hover,
+        a.button:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        .note-form {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Notes</h1>
     <div>
@@ -16,14 +70,35 @@
     <div>
         <ul>
             <li th:each="note : ${notes}">
-                <form th:action="@{'/notes/update/' + ${note.id}}" method="post">
-                    <input type="text" th:value="${note.title}" name="title" required="required">
-                    <textarea name="content" th:text="${note.content}" required="required"></textarea>
-                    <button type="submit">Update</button>
+                <h3 th:text="${note.title}"></h3>
+                <p th:text="${note.content}"></p>
+                <form th:action="@{'/notes/delete/' + ${note.id}}" method="post">
+                    <button type="submit">Delete</button>
                 </form>
-                <a th:href="@{'/notes/delete/' + ${note.id}}">Delete</a>
+            </li>
+        </ul>
+    </div><div>
+        <h2>Previous Notes</h2>
+        <ul>
+            <li th:each="note : ${notes}">
+                <div>
+                    <h3 th:text="${note.title}"></h3>
+                    <p th:text="${note.content}"></p>
+                    <span>
+                        <i class="fas fa-edit edit-icon" th:attr="data-id=${note.id}"></i>
+                        <i class="fas fa-trash-alt delete-icon" th:attr="data-id=${note.id}"></i>
+                    </span>
+                </div>
             </li>
         </ul>
     </div>
+    <div th:each="note : ${notes}">
+        <h3 th:text="${note.title}">Title</h3>
+        <p th:text="${note.content}">Content</p>
+      </div>
+
+    <!-- Font Awesome CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
+
 </html>
