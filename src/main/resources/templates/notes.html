@@ -7,6 +7,23 @@
 <body>
     <h1>Notes</h1>
     <div>
-       
+        <form action="#" th:action="@{/notes}" method="post">
+            <input type="text" name="title" placeholder="Title" required="required">
+            <textarea name="content" placeholder="Content" required="required"></textarea>
+            <button type="submit">Add Note</button>
+        </form>
+    </div>
+    <div>
+        <ul>
+            <li th:each="note : ${notes}">
+                <form th:action="@{'/notes/update/' + ${note.id}}" method="post">
+                    <input type="text" th:value="${note.title}" name="title" required="required">
+                    <textarea name="content" th:text="${note.content}" required="required"></textarea>
+                    <button type="submit">Update</button>
+                </form>
+                <a th:href="@{'/notes/delete/' + ${note.id}}">Delete</a>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
