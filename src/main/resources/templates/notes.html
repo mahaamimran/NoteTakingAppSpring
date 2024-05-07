@@ -22,13 +22,13 @@
 
         button,
         a.button {
-            background-color: #4CAF50;
+            background-color: #3a2667;
             color: white;
             padding: 10px 15px;
             margin: 8px 0;
             border: none;
             cursor: pointer;
-            width: auto;
+            width: 100%;
             text-decoration: none;
             text-align: center;
         }
@@ -68,6 +68,7 @@
         </form>
     </div>
     <div>
+        <h2>Previous Notes</h2>
         <ul>
             <li th:each="note : ${notes}">
                 <h3 th:text="${note.title}"></h3>
@@ -75,29 +76,11 @@
                 <form th:action="@{'/notes/delete/' + ${note.id}}" method="post">
                     <button type="submit">Delete</button>
                 </form>
-            </li>
-        </ul>
-    </div><div>
-        <h2>Previous Notes</h2>
-        <ul>
-            <li th:each="note : ${notes}">
-                <div>
-                    <h3 th:text="${note.title}"></h3>
-                    <p th:text="${note.content}"></p>
-                    <span>
-                        <i class="fas fa-edit edit-icon" th:attr="data-id=${note.id}"></i>
-                        <i class="fas fa-trash-alt delete-icon" th:attr="data-id=${note.id}"></i>
-                    </span>
-                </div>
+
+
             </li>
         </ul>
     </div>
-    <div th:each="note : ${notes}">
-        <h3 th:text="${note.title}">Title</h3>
-        <p th:text="${note.content}">Content</p>
-      </div>
-
-    <!-- Font Awesome CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 

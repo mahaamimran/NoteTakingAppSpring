@@ -7,6 +7,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/notes";  // Redirect to '/notes' to avoid conflict.
+        return "redirect:/notes";  
     }
 }
